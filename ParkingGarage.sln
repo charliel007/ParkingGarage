@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingGarage.MVC", "ParkingGarage.MVC\ParkingGarage.MVC.csproj", "{B596234C-CDBB-4D0F-98B2-3D1CF5E3DD2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingGarage.MVC", "ParkingGarage.MVC\ParkingGarage.MVC.csproj", "{B596234C-CDBB-4D0F-98B2-3D1CF5E3DD2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingGarage.Data", "ParkingGarage.Data\ParkingGarage.Data.csproj", "{B153C129-7CCE-4BA1-9D6E-4C53E1A71586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingGarage.Data", "ParkingGarage.Data\ParkingGarage.Data.csproj", "{B153C129-7CCE-4BA1-9D6E-4C53E1A71586}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingGarage.Models", "ParkingGarage.Models\ParkingGarage.Models.csproj", "{21F6E2DC-37DA-49E5-944B-DC230809E149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingGarage.Models", "ParkingGarage.Models\ParkingGarage.Models.csproj", "{21F6E2DC-37DA-49E5-944B-DC230809E149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingGarage.Services", "ParkingGarage.Services\ParkingGarage.Services.csproj", "{5F0B2AD9-4B83-4E07-B7A5-7BA82BF51136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingGarage.Services", "ParkingGarage.Services\ParkingGarage.Services.csproj", "{5F0B2AD9-4B83-4E07-B7A5-7BA82BF51136}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A26ED116-21F7-48BD-B17B-DC4352A096B0}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
