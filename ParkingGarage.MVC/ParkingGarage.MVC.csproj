@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ParkingGarage.Services\ParkingGarage.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Vehicle\" />
+  </ItemGroup>
+
 </Project>

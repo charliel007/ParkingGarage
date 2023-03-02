@@ -17,5 +17,7 @@ namespace ParkingGarage.Data.Entities
         public LicensePlateState LicensePlateState { get; set; }
         public string ?LicensePlateNumber{ get; set; }
         public List<VehicleLocationEntity> VehicleLocations { get; set; } = new List<VehicleLocationEntity>();
+        public int UserEntityId { get; set; }
+        public virtual UserEntity UserEntity { get; set; }
     }
 }

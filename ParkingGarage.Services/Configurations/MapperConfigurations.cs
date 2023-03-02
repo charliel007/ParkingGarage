@@ -21,7 +21,6 @@ namespace ParkingGarage.Services.Configurations
             CreateMap<UserEntity, UserDetail>().ReverseMap();
 
             CreateMap<LocationEntity, LocationListItem>().ReverseMap();
-            CreateMap<LocationEntity, LocationEdit>().ReverseMap();
             CreateMap<LocationEntity, LocationDetail>().ReverseMap();
 
             CreateMap<VehicleEntity, VehicleCreate>().ReverseMap();
@@ -31,7 +30,6 @@ namespace ParkingGarage.Services.Configurations
 
             CreateMap<VehicleLocationEntity, VehicleLocationCreate>().ReverseMap();
             CreateMap<VehicleLocationEntity, VehicleLocationListItem>().ReverseMap();
-            CreateMap<VehicleLocationEntity, VehicleLocationDetail>().ReverseMap();
 
             CreateMap<ReservationEntity, ReservationCreate>().ReverseMap();
             CreateMap<ReservationEntity, ReservationListItem>().ReverseMap();

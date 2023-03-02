@@ -11,5 +11,7 @@ namespace ParkingGarage.Data.Entities
         public int Id { get; set; }
         public int LocationEntityId { get; set; }
         public int VehicleEntityId { get; set; }
+        public virtual VehicleEntity VehicleEntity { get; set; }
+        public virtual LocationEntity LocationEntity { get; set; }
     }
 }

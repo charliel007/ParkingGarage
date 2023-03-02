@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using ParkingGarage.Data.Data;
 using ParkingGarage.Data.Entities;
 using ParkingGarage.Services.Configurations;
+using ParkingGarage.Services.LocationServices;
+using ParkingGarage.Services.ReservationServices;
+using ParkingGarage.Services.UserServices;
+using ParkingGarage.Services.VehicleLocationServices;
+using ParkingGarage.Services.VehicleServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,12 @@ builder.Services.AddDefaultIdentity<UserEntity>(options => options.SignIn.Requir
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(MapperConfigurations));
+
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IVehicleLocationService, VehicleLocationService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 var app = builder.Build();
 

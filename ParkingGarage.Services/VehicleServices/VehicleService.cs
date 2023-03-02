@@ -43,13 +43,13 @@ namespace ParkingGarage.Services.VehicleServices
 
         public async Task<List<VehicleListItem>> GetAllVehicles()
         {
-            var conversion = await _context.Vehicles.ToListAsync();
+            var conversion = await _context.Vehicles.Include(v => v.UserEntity).ToListAsync();
             return _mapper.Map<List<VehicleListItem>>(conversion);
         }
 
         public async Task<VehicleDetail> GetVehicleById(int id)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            var vehicle = await _context.Vehicles.Include(v => v.UserEntity).FirstOrDefaultAsync(x => x.Id == id);
             if (vehicle == null) return new VehicleDetail();
 
             return _mapper.Map<VehicleDetail>(vehicle);
@@ -61,10 +61,10 @@ namespace ParkingGarage.Services.VehicleServices
             if (vehicle == null) return false;
             else
             {
+                vehicle.Year = model.Year;
                 vehicle.Color = model.Color;
                 vehicle.Model = model.Model;
-                vehicle.Model = model.Model;
-                vehicle.Year = model.Year;
+                vehicle.Make = model.Make;
                 vehicle.LicensePlateState = model.LicensePlateState;
                 vehicle.LicensePlateNumber = model.LicensePlateNumber;
 
