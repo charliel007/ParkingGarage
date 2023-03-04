@@ -1,0 +1,43 @@
+﻿@model ReservationCreate
+
+@{
+    ViewData["Title"] = "Create Reservation";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Post">
+            <div class="form-group">
+                <label asp-for="LocationEntityId" class="control-label"></label>
+                @Html.DropDownListFor(l=>l.LocationEntityId,Model.LocationOptions)
+                <span asp-validation-for="LocationEntityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ReservationType" class="control-label"></label>
+                <select asp-for="ReservationType"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<ReservationType>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="ReservationType" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="IssuedNumber" class="control-label"></label>
+                <input asp-for="IssuedNumber" class="form-control"/>
+                <span asp-validation-for="IssuedNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+               <input id="issueddate" type="datetime-local" name="IssuedDate">
+               <input id="expirationdate" type="datetime-local" name="ExpirationDate">
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="=btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ParkingGarage.Data.Data;
 using ParkingGarage.Data.Entities;
+using ParkingGarage.Models.LocationModels;
 using ParkingGarage.Models.ReservationModels;
 using ParkingGarage.Models.VehicleModels;
 using System;
@@ -25,15 +27,19 @@ namespace ParkingGarage.Services.ReservationServices
 
         public async Task<bool> CreateReservation(ReservationCreate model)
         {
-            var reservation = _mapper.Map<ReservationEntity>(model);
+            var reservation = _mapper.Map<ReservationEntity>(model);          
             await _context.Reservations.AddAsync(reservation);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<ReservationListItem>> GetAllReservations()
         {
-            var conversion = await _context.Reservations.Include(r => r.LocationEntity).ToListAsync();
-            return _mapper.Map<List<ReservationListItem>>(conversion);
+            var conversion = await _context.Reservations
+                .Include(r => r.LocationEntity)
+                .ToListAsync(); //
+            
+            var mapped = _mapper.Map<List<ReservationListItem>>(conversion);
+            return mapped;
         }
 
         public async Task<ReservationDetail> GetReservationById(int id)
@@ -43,5 +49,15 @@ namespace ParkingGarage.Services.ReservationServices
 
             return _mapper.Map<ReservationDetail>(reservation);
         }
+
+        public async Task<IEnumerable<SelectListItem>> SelectLocationListItemConversion()
+        {
+            return await _context.Locations.Select(l => new SelectListItem
+            {
+                Text = l.Name,
+                Value = l.Id.ToString()
+            }).ToListAsync();
+        }
+
     }
 }

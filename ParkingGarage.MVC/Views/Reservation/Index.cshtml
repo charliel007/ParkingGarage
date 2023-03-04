@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ReservationListItem>
+
+
+
+    @{
+        ViewData["Title"] = "Reservation Listing";
+    }
+
+
+@Html.ActionLink("Create Reservation","Post","Reservation")
+@if(Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Location Name</th>
+                <th>Type</th>
+                <th>Issued Time</th>
+                <th>Expiration Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>@reservation.IssuedNumber</td>
+                    <td>@reservation.Location.Name</td>
+                    <td>@reservation.ReservationType</td>
+                    <td>@reservation.IssueDate</td>
+                    <td>@reservation.ExpirationDate</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@reservation.Id">Details</a> |
+                        <a asp-action="Edit" asp-route-id="@reservation.Id">Edit</a> |
+                        <a asp-action="Delte" asp-route-id="@reservation.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-danger">Sorry, No Reservations</p>
+}

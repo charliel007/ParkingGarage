@@ -1,4 +1,5 @@
-﻿using ParkingGarage.Models.ReservationModels;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ParkingGarage.Models.ReservationModels;
 using ParkingGarage.Models.VehicleModels;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace ParkingGarage.Services.ReservationServices
         Task<bool> CreateReservation(ReservationCreate model);
         Task<ReservationDetail> GetReservationById(int id);
         Task<List<ReservationListItem>> GetAllReservations();
+        Task<IEnumerable<SelectListItem>> SelectLocationListItemConversion();
     }
 }
