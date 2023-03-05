@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ParkingGarage.Data.Data;
 using ParkingGarage.Data.Entities;
@@ -6,6 +8,7 @@ using ParkingGarage.Models.VehicleModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +28,9 @@ namespace ParkingGarage.Services.VehicleServices
         public async Task<bool> CreateVehicle(VehicleCreate model)
         {
             var vehicle = _mapper.Map<VehicleEntity>(model);
+
+            
+
             await _context.Vehicles.AddAsync(vehicle);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -61,12 +67,13 @@ namespace ParkingGarage.Services.VehicleServices
             if (vehicle == null) return false;
             else
             {
-                vehicle.Year = model.Year;
+                _mapper.Map(model, vehicle);
+                /*vehicle.Year = model.Year;
                 vehicle.Color = model.Color;
                 vehicle.Model = model.Model;
                 vehicle.Make = model.Make;
                 vehicle.LicensePlateState = model.LicensePlateState;
-                vehicle.LicensePlateNumber = model.LicensePlateNumber;
+                vehicle.LicensePlateNumber = model.LicensePlateNumber;*/
 
                 await _context.SaveChangesAsync();
                 return true;

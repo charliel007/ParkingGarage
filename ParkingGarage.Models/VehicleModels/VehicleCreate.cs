@@ -17,6 +17,6 @@ namespace ParkingGarage.Models.VehicleModels
         public Color Color { get; set; }
         public LicensePlateState LicensePlateState { get; set; }
         public string? LicensePlateNumber { get; set; }
-        public int UserId { get; set; }
+        public string UserEntityId { get; set; }
     }
 }

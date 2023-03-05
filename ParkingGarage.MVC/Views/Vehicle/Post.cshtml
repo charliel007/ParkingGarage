@@ -1,0 +1,61 @@
+﻿@model VehicleCreate
+
+@{
+    ViewData["Title"] = "Create Reservation";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Post">
+ 
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Make" class="control-label"></label>
+                <input asp-for="Make" class="form-control" />
+                <span asp-validation-for="Make" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <select asp-for="Color"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<Color>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LicensePlateState" class="control-label"></label>
+                <select asp-for="LicensePlateState"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<LicensePlateState>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="LicensePlateState" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LicensePlateNumber" class="control-label"></label>
+                <input asp-for="LicensePlateNumber" class="form-control" />
+                <span asp-validation-for="LicensePlateNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="=btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

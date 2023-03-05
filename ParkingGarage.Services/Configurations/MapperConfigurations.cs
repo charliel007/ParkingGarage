@@ -26,6 +26,7 @@ namespace ParkingGarage.Services.Configurations
             CreateMap<VehicleEntity, VehicleCreate>().ReverseMap();
             CreateMap<VehicleEntity, VehicleListItem>().ReverseMap();
             CreateMap<VehicleEntity, VehicleDetail>().ReverseMap();
+            
             CreateMap<VehicleEntity, VehicleEdit>().ReverseMap();
 
             CreateMap<VehicleLocationEntity, VehicleLocationCreate>().ReverseMap();

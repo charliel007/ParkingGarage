@@ -328,10 +328,7 @@ namespace ParkingGarage.Data.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserEntityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserEntityId1")
+                    b.Property<string>("UserEntityId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -340,7 +337,7 @@ namespace ParkingGarage.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEntityId1");
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("Vehicles");
                 });
@@ -434,7 +431,7 @@ namespace ParkingGarage.Data.Migrations
                 {
                     b.HasOne("ParkingGarage.Data.Entities.UserEntity", "UserEntity")
                         .WithMany("Vehicles")
-                        .HasForeignKey("UserEntityId1")
+                        .HasForeignKey("UserEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -12,8 +12,8 @@ using ParkingGarage.Data.Data;
 namespace ParkingGarage.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230224211335_Seed Data")]
-    partial class SeedData
+    [Migration("20230304205211_3-4-23")]
+    partial class _3423
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -332,6 +332,7 @@ namespace ParkingGarage.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserEntityId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
@@ -420,33 +421,43 @@ namespace ParkingGarage.Data.Migrations
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.ReservationEntity", b =>
                 {
-                    b.HasOne("ParkingGarage.Data.Entities.LocationEntity", null)
+                    b.HasOne("ParkingGarage.Data.Entities.LocationEntity", "LocationEntity")
                         .WithMany("Reservations")
                         .HasForeignKey("LocationEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("LocationEntity");
                 });
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.VehicleEntity", b =>
                 {
-                    b.HasOne("ParkingGarage.Data.Entities.UserEntity", null)
+                    b.HasOne("ParkingGarage.Data.Entities.UserEntity", "UserEntity")
                         .WithMany("Vehicles")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("UserEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserEntity");
                 });
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.VehicleLocationEntity", b =>
                 {
-                    b.HasOne("ParkingGarage.Data.Entities.LocationEntity", null)
+                    b.HasOne("ParkingGarage.Data.Entities.LocationEntity", "LocationEntity")
                         .WithMany("VehicleLocations")
                         .HasForeignKey("LocationEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ParkingGarage.Data.Entities.VehicleEntity", null)
+                    b.HasOne("ParkingGarage.Data.Entities.VehicleEntity", "VehicleEntity")
                         .WithMany("VehicleLocations")
                         .HasForeignKey("VehicleEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("LocationEntity");
+
+                    b.Navigation("VehicleEntity");
                 });
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.LocationEntity", b =>
