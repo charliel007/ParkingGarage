@@ -29,13 +29,15 @@ namespace ParkingGarage.Services.ReservationServices
         {
             var reservation = _mapper.Map<ReservationEntity>(model);          
             await _context.Reservations.AddAsync(reservation);
+
+
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<ReservationListItem>> GetAllReservations()
         {
             var conversion = await _context.Reservations
-                .Include(r => r.LocationEntity)
+                .Include(r => r.VehicleLocationEntity)
                 .ToListAsync(); //
             
             var mapped = _mapper.Map<List<ReservationListItem>>(conversion);
@@ -44,7 +46,7 @@ namespace ParkingGarage.Services.ReservationServices
 
         public async Task<ReservationDetail> GetReservationById(int id)
         {
-            var reservation = await _context.Reservations.Include(r => r.LocationEntity).FirstOrDefaultAsync(x => x.Id == id);
+            var reservation = await _context.Reservations.Include(r => r.VehicleLocationEntity).FirstOrDefaultAsync(x => x.Id == id);
             if (reservation == null) return new ReservationDetail();
 
             return _mapper.Map<ReservationDetail>(reservation);
@@ -55,6 +57,15 @@ namespace ParkingGarage.Services.ReservationServices
             return await _context.Locations.Select(l => new SelectListItem
             {
                 Text = l.Name,
+                Value = l.Id.ToString()
+            }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<SelectListItem>> SelectVehicleListItemConversion()
+        {
+            return await _context.Vehicles.Select(l => new SelectListItem
+            {
+                Text = l.LicensePlateNumber,
                 Value = l.Id.ToString()
             }).ToListAsync();
         }

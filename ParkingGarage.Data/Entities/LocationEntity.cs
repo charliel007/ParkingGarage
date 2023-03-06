@@ -14,7 +14,6 @@ namespace ParkingGarage.Data.Entities
         public string ?City { get; set; }
         public int Spot { get; set; }
         public List<VehicleLocationEntity> VehicleLocations { get; set; } = new List<VehicleLocationEntity>();
-        public List<ReservationEntity> Reservations { get; set; } = new List<ReservationEntity>();
 
     }
 }

@@ -8,10 +8,17 @@
     <div class="col-md-4">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <form asp-action="Post">
+            
             <div class="form-group">
                 <label asp-for="LocationEntityId" class="control-label"></label>
                 @Html.DropDownListFor(l=>l.LocationEntityId,Model.LocationOptions)
                 <span asp-validation-for="LocationEntityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VehicleEntityId" class="control-label"></label>
+                @Html.DropDownListFor(l=>l.VehicleEntityId,Model.VehicleOptions)
+                <span asp-validation-for="VehicleEntityId" class="text-danger"></span>
             </div>
 
             <div class="form-group">

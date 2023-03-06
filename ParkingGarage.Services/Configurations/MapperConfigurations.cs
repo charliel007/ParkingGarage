@@ -32,10 +32,14 @@ namespace ParkingGarage.Services.Configurations
             CreateMap<VehicleLocationEntity, VehicleLocationCreate>().ReverseMap();
             CreateMap<VehicleLocationEntity, VehicleLocationListItem>().ReverseMap();
 
-            CreateMap<ReservationEntity, ReservationCreate>().ReverseMap();
+            CreateMap<ReservationEntity, ReservationCreate>()
+                .ForMember(dest => dest.LocationEntityId, act => act.MapFrom(src => src.VehicleLocationEntity.LocationEntityId))
+                .ForMember(dest => dest.VehicleEntityId, act => act.MapFrom(src => src.VehicleLocationEntity.VehicleEntityId))
+
+                .ReverseMap();
             CreateMap<ReservationEntity, ReservationListItem>()
-                .ForMember(dest => dest.Location, act => act
-                .MapFrom(src => src.LocationEntity))
+                .ForMember(dest => dest.VehicleLocation, act => act
+                .MapFrom(src => src.VehicleLocationEntity))
                 .ReverseMap();
             CreateMap<ReservationEntity, ReservationDetail>().ReverseMap();
         }

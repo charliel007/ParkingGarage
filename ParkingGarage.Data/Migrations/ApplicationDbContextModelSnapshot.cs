@@ -227,15 +227,15 @@ namespace ParkingGarage.Data.Migrations
                     b.Property<string>("IssuedNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LocationEntityId")
+                    b.Property<int>("ReservationType")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReservationType")
+                    b.Property<int>("VehicleLocationEntityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationEntityId");
+                    b.HasIndex("VehicleLocationEntityId");
 
                     b.ToTable("Reservations");
                 });
@@ -418,13 +418,13 @@ namespace ParkingGarage.Data.Migrations
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.ReservationEntity", b =>
                 {
-                    b.HasOne("ParkingGarage.Data.Entities.LocationEntity", "LocationEntity")
+                    b.HasOne("ParkingGarage.Data.Entities.VehicleLocationEntity", "VehicleLocationEntity")
                         .WithMany("Reservations")
-                        .HasForeignKey("LocationEntityId")
+                        .HasForeignKey("VehicleLocationEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LocationEntity");
+                    b.Navigation("VehicleLocationEntity");
                 });
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.VehicleEntity", b =>
@@ -459,8 +459,6 @@ namespace ParkingGarage.Data.Migrations
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.LocationEntity", b =>
                 {
-                    b.Navigation("Reservations");
-
                     b.Navigation("VehicleLocations");
                 });
 
@@ -472,6 +470,11 @@ namespace ParkingGarage.Data.Migrations
             modelBuilder.Entity("ParkingGarage.Data.Entities.VehicleEntity", b =>
                 {
                     b.Navigation("VehicleLocations");
+                });
+
+            modelBuilder.Entity("ParkingGarage.Data.Entities.VehicleLocationEntity", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

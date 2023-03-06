@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ParkingGarage.Data.Entities;
 using ParkingGarage.Models.VehicleModels;
 using ParkingGarage.Services.VehicleServices;
 using System.Security.Claims;
@@ -19,7 +21,12 @@ namespace ParkingGarage.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _vehicleService.GetAllVehicles());
+            CheckUser();
+
+            ClaimsPrincipal currentUser = this.User;
+            string id = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            return View(await _vehicleService.GetAllVehicles(id));
         }
 
         [HttpGet]
@@ -28,10 +35,7 @@ namespace ParkingGarage.MVC.Controllers
         {
             VehicleCreate rCreate = new VehicleCreate();
 
-            ClaimsPrincipal currentUser = this.User;
-
-            if (currentUser.Identity.IsAuthenticated == false)
-            return BadRequest("Need to be logged in.");
+            CheckUser();
 
             return View(rCreate);
         }
@@ -41,13 +45,13 @@ namespace ParkingGarage.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(VehicleCreate vehicle)
         {
+            //Assign current UserId to vehicle and remove from property from modelstate for validation purpose
             ClaimsPrincipal currentUser = this.User;
             vehicle.UserEntityId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ModelState.Remove("UserEntityId");
 
-            var test = vehicle;
-
-            // if (!ModelState.IsValid)
-            //    return BadRequest(vehicle);
+            if (!ModelState.IsValid)
+                return BadRequest(vehicle);
             if (await _vehicleService.CreateVehicle(vehicle))
                 return RedirectToAction(nameof(Index));
             else
@@ -60,5 +64,16 @@ namespace ParkingGarage.MVC.Controllers
         {
             return View(await _vehicleService.GetVehicleById(id));
         }
+ 
+        //method to make sure a user is logged in
+        public IActionResult CheckUser()
+        {
+            ClaimsPrincipal currentUser = this.User;
+            if (currentUser.Identity.IsAuthenticated == false)
+                return BadRequest("Need to be logged in.");
+            else
+            return View();
+        }
+
     }
 }

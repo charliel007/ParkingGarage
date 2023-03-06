@@ -26,8 +26,13 @@ namespace ParkingGarage.MVC.Controllers
         public async Task<IActionResult> Post()
         {
             var locationOptions = await _reservationService.SelectLocationListItemConversion();
+            var vehicleOptions = await _reservationService.SelectVehicleListItemConversion();
+            
             ReservationCreate rCreate = new ReservationCreate();
+           
             rCreate.LocationOptions = locationOptions;
+            rCreate.VehicleOptions = vehicleOptions;
+            
             return View(rCreate);
         }
 

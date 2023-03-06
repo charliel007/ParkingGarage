@@ -14,7 +14,7 @@ namespace ParkingGarage.Data.Entities
         public DateTime IssueDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string ?IssuedNumber { get; set; }
-        public int LocationEntityId { get; set; }
-        public virtual LocationEntity LocationEntity { get; set; }
+        public int VehicleLocationEntityId { get; set; }
+        public virtual VehicleLocationEntity VehicleLocationEntity { get; set; }
     }
 }

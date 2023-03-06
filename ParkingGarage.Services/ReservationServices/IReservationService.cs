@@ -15,5 +15,6 @@ namespace ParkingGarage.Services.ReservationServices
         Task<ReservationDetail> GetReservationById(int id);
         Task<List<ReservationListItem>> GetAllReservations();
         Task<IEnumerable<SelectListItem>> SelectLocationListItemConversion();
+        Task<IEnumerable<SelectListItem>> SelectVehicleListItemConversion();
     }
 }

@@ -13,6 +13,8 @@ namespace ParkingGarage.Services.VehicleServices
         Task<bool> UpdateVehicle(VehicleEdit model);
         Task<bool> DeleteVehicle(int id);
         Task<VehicleDetail> GetVehicleById(int id);
-        Task<List<VehicleListItem>> GetAllVehicles();
+
+        //added string paramater to getall service method to limit vehicles to logged in user
+        Task<List<VehicleListItem>> GetAllVehicles(string id);
     }
 }

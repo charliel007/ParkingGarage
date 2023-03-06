@@ -47,9 +47,10 @@ namespace ParkingGarage.Services.VehicleServices
             }
         }
 
-        public async Task<List<VehicleListItem>> GetAllVehicles()
+        //added string paramater to getall service method to limit vehicles to logged in user
+        public async Task<List<VehicleListItem>> GetAllVehicles(string id)
         {
-            var conversion = await _context.Vehicles.Include(v => v.UserEntity).ToListAsync();
+            var conversion = await _context.Vehicles.Include(v => v.UserEntity).Where(i => i.UserEntityId == id).ToListAsync();
             return _mapper.Map<List<VehicleListItem>>(conversion);
         }
 

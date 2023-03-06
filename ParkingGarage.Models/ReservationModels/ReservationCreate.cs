@@ -16,6 +16,9 @@ namespace ParkingGarage.Models.ReservationModels
         public DateTime ExpirationDate { get; set; }
         public int LocationEntityId { get; set; }
         public IEnumerable<SelectListItem> LocationOptions { get; set; } = new List<SelectListItem>();
-        
+
+        public int VehicleEntityId { get; set; }
+        public IEnumerable<SelectListItem> VehicleOptions { get; set; } = new List<SelectListItem>();
+
     }
 }

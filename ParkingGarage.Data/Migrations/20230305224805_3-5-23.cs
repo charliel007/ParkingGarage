@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ParkingGarage.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class _3423 : Migration
+    public partial class _3523 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -200,29 +200,6 @@ namespace ParkingGarage.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReservationType = table.Column<int>(type: "int", nullable: false),
-                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IssuedNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationEntityId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Reservations_Locations_LocationEntityId",
-                        column: x => x.LocationEntityId,
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "VehicleLocations",
                 columns: table => new
                 {
@@ -244,6 +221,29 @@ namespace ParkingGarage.Data.Migrations
                         name: "FK_VehicleLocations_Vehicles_VehicleEntityId",
                         column: x => x.VehicleEntityId,
                         principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReservationType = table.Column<int>(type: "int", nullable: false),
+                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IssuedNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VehicleLocationEntityId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_VehicleLocations_VehicleLocationEntityId",
+                        column: x => x.VehicleLocationEntityId,
+                        principalTable: "VehicleLocations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -298,9 +298,9 @@ namespace ParkingGarage.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_LocationEntityId",
+                name: "IX_Reservations_VehicleLocationEntityId",
                 table: "Reservations",
-                column: "LocationEntityId");
+                column: "VehicleLocationEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleLocations_LocationEntityId",
@@ -340,10 +340,10 @@ namespace ParkingGarage.Data.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
-                name: "VehicleLocations");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "VehicleLocations");
 
             migrationBuilder.DropTable(
                 name: "Locations");
