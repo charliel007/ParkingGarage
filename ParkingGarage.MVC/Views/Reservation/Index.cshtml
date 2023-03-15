@@ -6,8 +6,17 @@
         ViewData["Title"] = "Reservation Listing";
     }
 
+<div class="text-center">
+    <h1 class="display-4">Reservations</h1>
+</div>
 
-@Html.ActionLink("Create Reservation","Post","Reservation")
+<ul class="nav">
+    <li class="nav-item fs-5">
+        <a class="nav-link active" aria-current="page" href="#">@Html.ActionLink("Create Reservation","Post","Reservation")</a>
+    </li>
+</ul>
+<p />
+
 @if(Model.Count() > 0)
 {
     <table class="table">
@@ -15,10 +24,10 @@
             <tr>
                 <th>Id</th>
                 <th>Location Name</th>
-                <th>Type</th>
+                <th>License Plate</th>
+                <th>Reservation Type</th>
                 <th>Issued Time</th>
                 <th>Expiration Time</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,15 +35,11 @@
             {
                 <tr>
                     <td>@reservation.IssuedNumber</td>
-                    <td>@reservation.VehicleLocation.Id</td>
+                    <td>@reservation.VehicleLocation.Location.Name</td>
+                    <td>@reservation.VehicleLocation.Vehicle.LicensePlateNumber</td>
                     <td>@reservation.ReservationType</td>
                     <td>@reservation.IssueDate</td>
                     <td>@reservation.ExpirationDate</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@reservation.Id">Details</a> |
-                        <a asp-action="Edit" asp-route-id="@reservation.Id">Edit</a> |
-                        <a asp-action="Delte" asp-route-id="@reservation.Id">Delete</a>
-                    </td>
                 </tr>
             }
         </tbody>

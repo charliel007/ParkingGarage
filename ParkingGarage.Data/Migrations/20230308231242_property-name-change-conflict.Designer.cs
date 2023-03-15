@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkingGarage.Data.Data;
 
@@ -11,9 +12,11 @@ using ParkingGarage.Data.Data;
 namespace ParkingGarage.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230308231242_property-name-change-conflict")]
+    partial class propertynamechangeconflict
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,7 +184,7 @@ namespace ParkingGarage.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
 
                     b.HasData(
                         new
@@ -237,7 +240,7 @@ namespace ParkingGarage.Data.Migrations
 
                     b.HasIndex("VehicleLocationEntityId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.UserEntity", b =>
@@ -339,7 +342,7 @@ namespace ParkingGarage.Data.Migrations
 
                     b.HasIndex("UserEntityId");
 
-                    b.ToTable("Vehicles", (string)null);
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("ParkingGarage.Data.Entities.VehicleLocationEntity", b =>
@@ -362,7 +365,7 @@ namespace ParkingGarage.Data.Migrations
 
                     b.HasIndex("VehicleEntityId");
 
-                    b.ToTable("VehicleLocations", (string)null);
+                    b.ToTable("VehicleLocations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

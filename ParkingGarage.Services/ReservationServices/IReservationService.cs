@@ -12,9 +12,9 @@ namespace ParkingGarage.Services.ReservationServices
     public interface IReservationService
     {
         Task<bool> CreateReservation(ReservationCreate model);
-        Task<ReservationDetail> GetReservationById(int id);
-        Task<List<ReservationListItem>> GetAllReservations();
+        Task<List<ReservationListItem>> GetForCompare();
+        Task<List<ReservationListItem>> GetAllReservations(string id);
         Task<IEnumerable<SelectListItem>> SelectLocationListItemConversion();
-        Task<IEnumerable<SelectListItem>> SelectVehicleListItemConversion();
+        Task<IEnumerable<SelectListItem>> SelectVehicleListItemConversion(string id);
     }
 }

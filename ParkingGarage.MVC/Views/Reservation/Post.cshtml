@@ -4,25 +4,29 @@
     ViewData["Title"] = "Create Reservation";
 }
 
+<div class="text-center">
+    <h2 class="display-4">Add a Reservation</h2>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <form asp-action="Post">
             
             <div class="form-group">
-                <label asp-for="LocationEntityId" class="control-label"></label>
+                <h5><label asp-for="LocationEntityId" class="control-label">Select Parking Garage</label></h5>
                 @Html.DropDownListFor(l=>l.LocationEntityId,Model.LocationOptions)
                 <span asp-validation-for="LocationEntityId" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="VehicleEntityId" class="control-label"></label>
+                <h5><label asp-for="VehicleEntityId" class="control-label" >License Plate</label></h5>
                 @Html.DropDownListFor(l=>l.VehicleEntityId,Model.VehicleOptions)
                 <span asp-validation-for="VehicleEntityId" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="ReservationType" class="control-label"></label>
+                <h5><label asp-for="ReservationType" class="control-label">Pass or Permit</label></h5>
                 <select asp-for="ReservationType"
                         class="form-control"
                         asp-items="Html.GetEnumSelectList<ReservationType>()">
@@ -30,21 +34,40 @@
                 </select>
                 <span asp-validation-for="ReservationType" class="text-danger"></span>
             </div>
-            
+            <p></p>
             <div class="form-group">
-                <label asp-for="IssuedNumber" class="control-label"></label>
+                <h5><label asp-for="IssuedNumber" class="control-label">Name</label></h5>
                 <input asp-for="IssuedNumber" class="form-control"/>
                 <span asp-validation-for="IssuedNumber" class="text-danger"></span>
             </div>
-
+            <br />
             <div class="form-group">
-               <input id="issueddate" type="datetime-local" name="IssuedDate">
-               <input id="expirationdate" type="datetime-local" name="ExpirationDate">
+                <h5>Start Date & Time</h5>
+               <input id="IssueDate" type="datetime-local" name="IssueDate"> 
             </div>
-
+            <br/>
+            <div class="form-group"> <h5>Pass (only enter if Pass is selected)</h5></div>
+            <div class="form-group">
+                <label for="hours">Hours (Available in 0.5 Hour Increments): </label>
+                <input type="number" id="quantity" name="hours" min="0" max="24" step="0.5" value="null">
+            </div>
+            <p></p>
+            <div class="form-group">
+                <label for="days">Days (Upto 182 Days): </label>
+                <input type="number" id="quantity" name="days" min="0" max="182" step="1" value="null">
+            </div>
+            <br />
+            <p></p>
+            <div class="form-group"> <h5>Permit (only enter if Permit is selected)</h5></div>
+            <div class="form-group">
+                <label for="years">Years (Available in 0.5 Year Increments, 5yr max): </label>
+                <input type="number" id="quantity" name="years" min="0" max="5" step="0.5" value="null">
+            </div>
+            <p></p>
             <div class="form-group">
                 <input type="submit" value="Create" class="=btn btn-primary" />
             </div>
         </form>
     </div>
+
 </div>

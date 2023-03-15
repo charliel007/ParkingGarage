@@ -1,8 +1,88 @@
-﻿@{
+﻿@model IList<LocationListItem>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome--------------------------</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Parking Garage Reservations</h1>
+    <p class="text-start fs-4">Welcome to Parking Garage MVC application.  This application serves to proactively find and reserve parking at existing parking garages.  First, you will need to create a user account and be logged in to use the service.  It has been assumed that parking garages want record of what vehicles park in their garages, so a vehicle needs entered before a reservation.  A user has complete function of a Vehicle.  Reservations however are considered permanent and can only be created and read.  Reservations can be entered either in 0.5 hour increments via Parking Pass or bi-annually via a Parking Permit.  No additional reservations can be entered at a garage once it has reached its limit at any given point in time (via Total Spots).</p>
+    
+    <div class="d-flex justify-content-center flex-wrap">
+
+        <div class="card p-2 m-3 flex-wrap" style="width: 20rem; background-color: #e3e6e6;">
+            <img src="@Url.Content("~/images/Parking 1.jpg")" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(m => Model[0].Name)</h5>
+                <p class="card-text; text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-start">
+                        <b>@Html.DisplayNameFor(model => model.Single().Address) </b>
+                        @Html.DisplayFor(m => Model[0].Address)
+                    </li>
+                    <li class="list-group-item text-start">
+                        <b>@Html.DisplayNameFor(model => model.Single().City) </b>
+                        @Html.DisplayFor(m => Model[0].City)
+                    </li>
+                    <li class="list-group-item text-start">
+                        <b>Total @Html.DisplayNameFor(model => model.Single().Spot)s </b>
+                        @Html.DisplayFor(m => Model[0].Spot)
+                    </li>
+                </ul>
+            </div>
+            <a class="btn btn-secondary" asp-controller="Reservation" asp-action="Index">Get Started</a>
+        </div>
+
+        <div class="card p-2 m-3 flex-wrap" style="width: 20rem; background-color: #e3e6e6;">
+            <img src="@Url.Content("~/images/Parking 3.jpg")" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(m => Model[1].Name)</h5>
+                <p class="card-text; text-start">In auctor dignissim potenti curae sed augue nam dictum eros finibus elit inceptos metus. Netus litora turpis non vivamus eleifend litora senectus ligula purus id.</p>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-start">
+                        <b>@Html.DisplayNameFor(model => model.Single().Address) </b>
+                        @Html.DisplayFor(m => Model[1].Address)
+                    </li>
+                    <li class="list-group-item text-start">
+                        <b>@Html.DisplayNameFor(model => model.Single().City) </b>
+                        @Html.DisplayFor(m => Model[1].City)
+                    </li>
+                    <li class="list-group-item text-start">
+                        <b>Total @Html.DisplayNameFor(model => model.Single().Spot)s </b>
+                        @Html.DisplayFor(m => Model[1].Spot)
+                    </li>
+                </ul>
+            </div>
+            <a class="btn btn-secondary" asp-controller="Reservation" asp-action="Index">Get Started</a>
+        </div>
+    
+        <div class="card p-2 m-3 flex-wrap" style="width: 20rem; background-color: #e3e6e6;">
+            <img src="@Url.Content("~/images/Parking 5.jpg")" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(m => Model[2].Name)</h5>
+                <p class="card-text; text-start">Hendrerit lobortis congue vestibulum hendrerit lacinia ac ultrices litora varius lorem hac nam porttitor porta. Tellus nunc lectus dictum massa porta.</p>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-start">
+                        <b>@Html.DisplayNameFor(model => model.Single().Address) </b>
+                        @Html.DisplayFor(m => Model[2].Address)
+                    </li>
+                    <li class="list-group-item text-start">
+                        <b>@Html.DisplayNameFor(model => model.Single().City) </b>
+                        @Html.DisplayFor(m => Model[2].City)
+                    </li>
+                    <li class="list-group-item text-start">
+                        <b>Total @Html.DisplayNameFor(model => model.Single().Spot)s </b>
+                        @Html.DisplayFor(m => Model[2].Spot)
+                    </li>
+                </ul>
+            </div>
+            <a class="btn btn-secondary" asp-controller="Reservation" asp-action="Index">Get Started</a>
+        </div>       
+    </div>
 </div>
+
+    
+

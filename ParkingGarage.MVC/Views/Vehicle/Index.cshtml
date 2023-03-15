@@ -6,14 +6,28 @@
     ViewData["Title"] = "Vehicle Listing";
 }
 
+<div class="text-center">
+    <h1 class="display-4">Vehicles</h1>
+</div>
 
-@Html.ActionLink("Add Vehicle","Post","Vehicle")
+<ul class="nav">
+    <li class="nav-item fs-5">
+        <a class="nav-link active" aria-current="page" href="#">@Html.ActionLink("Add Vehicle","Post","Vehicle")</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#"></a>
+    </li>
+    <li class="nav-item fs-5">
+        <a class="nav-link" href="#">@Html.ActionLink("Add Reservation","Post","Reservation")</a>
+    </li>
+</ul>
+<p />
+
 @if (Model.Count() > 0)
 {
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Year</th>
                 <th>Make</th>
                 <th>Model</th>
@@ -24,14 +38,13 @@
             @foreach (var vehicle in Model)
             {
                 <tr>
-                    <td>@vehicle.Id</td>
                     <td>@vehicle.Year</td>
                     <td>@vehicle.Make</td>
-                    <td>@vehicle.Model</td>
+                    <td>@vehicle.ModelName</td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@vehicle.Id">Details</a> |
-                        <a asp-action="Edit" asp-route-id="@vehicle.Id">Edit</a> |
-                        <a asp-action="Delte" asp-route-id="@vehicle.Id">Delete</a>
+                        <a asp-action="Details" asp-route-id="@vehicle.Id">Details</a> &nbsp | &nbsp
+                        <a asp-action="Edit" asp-route-id="@vehicle.Id">Edit</a> &nbsp | &nbsp
+                        <a asp-action="Delete" asp-route-id="@vehicle.Id">Delete</a>
                     </td>
                 </tr>
             }
@@ -40,5 +53,6 @@
 }
 else
 {
-    <p class="text-danger">Sorry, No Reservations</p>
+    <br />
+    <h6>No Vehicles Entered Yet...</h6>
 }

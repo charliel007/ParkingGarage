@@ -13,7 +13,7 @@ namespace ParkingGarage.Models.VehicleModels
     {
         public int Year { get; set; }
         public string? Make { get; set; }
-        public string? Model { get; set; }
+        public string? ModelName { get; set; }
         public Color Color { get; set; }
         public LicensePlateState LicensePlateState { get; set; }
         public string? LicensePlateNumber { get; set; }

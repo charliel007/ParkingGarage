@@ -1,0 +1,78 @@
+﻿@model VehicleDetail
+
+@{
+    string title = "Delete " + Model.LicensePlateNumber;
+    ViewData["Title"] = title;
+}
+
+<div class="text-center">
+    <h2 class="display-4">Vehicle Delete</h2>
+</div>
+<h3>Are you sure you want to delete @Model.LicensePlateNumber?</h3>
+<hr>
+
+<dl>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model=>model.LicensePlateNumber)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model=>model.LicensePlateNumber)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model=>model.LicensePlateState)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model=>model.LicensePlateState)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model=>model.Color)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model=>model.Color)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model=>model.Make)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model=>model.Make)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model=>model.ModelName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model=>model.ModelName)
+    </dd>
+    
+</dl>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Issued Id</th>
+            <th>Issued Date</th>
+            <th>Expiration Date</th>
+            <th>Parking Garage</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var VL in Model.VehicleLocations)
+        {
+            <tr>
+                @foreach (var rev in VL.Reservations)
+                {
+                    <td>@rev.IssuedNumber</td>
+                    <td>@rev.IssueDate</td>
+                    <td>@rev.ExpirationDate</td>
+                    <td>@VL.Location.Name</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<form asp-action="Delete">
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index">Back to List</a>
+</form>

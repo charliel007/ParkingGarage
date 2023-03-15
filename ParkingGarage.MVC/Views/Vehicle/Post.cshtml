@@ -1,8 +1,12 @@
 ﻿@model VehicleCreate
 
 @{
-    ViewData["Title"] = "Create Reservation";
+    ViewData["Title"] = "Create Vehicle";
 }
+
+<div class="text-center">
+    <h2 class="display-4">Add a Vehicle</h2>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -10,25 +14,25 @@
         <form asp-action="Post">
  
             <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
+                <h5><label asp-for="Year" class="control-label"></label></h5>
                 <input asp-for="Year" class="form-control" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
+                <h5><label asp-for="Make" class="control-label"></label></h5>
                 <input asp-for="Make" class="form-control" />
                 <span asp-validation-for="Make" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
+                <h5><label asp-for="ModelName" class="control-label"></label></h5>
+                <input asp-for="ModelName" class="form-control" />
+                <span asp-validation-for="ModelName" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
+                <h5><label asp-for="Color" class="control-label"></label></h5>
                 <select asp-for="Color"
                         class="form-control"
                         asp-items="Html.GetEnumSelectList<Color>()">
@@ -36,9 +40,9 @@
                 </select>
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="LicensePlateState" class="control-label"></label>
+                <h5><label asp-for="LicensePlateState" class="control-label"></label></h5>
                 <select asp-for="LicensePlateState"
                         class="form-control"
                         asp-items="Html.GetEnumSelectList<LicensePlateState>()">
@@ -46,13 +50,13 @@
                 </select>
                 <span asp-validation-for="LicensePlateState" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
-                <label asp-for="LicensePlateNumber" class="control-label"></label>
+                <h5><label asp-for="LicensePlateNumber" class="control-label"></label></h5>
                 <input asp-for="LicensePlateNumber" class="form-control" />
                 <span asp-validation-for="LicensePlateNumber" class="text-danger"></span>
             </div>
-
+            <p></p>
             <div class="form-group">
                 <input type="submit" value="Create" class="=btn btn-primary" />
             </div>

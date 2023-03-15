@@ -56,7 +56,15 @@ namespace ParkingGarage.Services.VehicleServices
 
         public async Task<VehicleDetail> GetVehicleById(int id)
         {
-            var vehicle = await _context.Vehicles.Include(v => v.UserEntity).FirstOrDefaultAsync(x => x.Id == id);
+            var vehicle = await _context.Vehicles
+                .Include(vl => vl.VehicleLocations)
+                .ThenInclude(r => r.Reservations)
+               
+                .Include(vl2 => vl2.VehicleLocations)
+                .ThenInclude(l => l.LocationEntity)
+                
+                .Include(u => u.UserEntity).FirstOrDefaultAsync(x => x.Id == id);
+            
             if (vehicle == null) return new VehicleDetail();
 
             return _mapper.Map<VehicleDetail>(vehicle);

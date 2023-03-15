@@ -5,6 +5,7 @@ using ParkingGarage.Data.Entities;
 using ParkingGarage.Models.VehicleModels;
 using ParkingGarage.Services.VehicleServices;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ParkingGarage.MVC.Controllers
 {
@@ -21,9 +22,12 @@ namespace ParkingGarage.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            CheckUser();
 
             ClaimsPrincipal currentUser = this.User;
+
+            if (currentUser.Identity.IsAuthenticated == false)
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+
             string id = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             return View(await _vehicleService.GetAllVehicles(id));
@@ -34,8 +38,6 @@ namespace ParkingGarage.MVC.Controllers
         public async Task<IActionResult> Post()
         {
             VehicleCreate rCreate = new VehicleCreate();
-
-            CheckUser();
 
             return View(rCreate);
         }
@@ -56,7 +58,7 @@ namespace ParkingGarage.MVC.Controllers
                 return RedirectToAction(nameof(Index));
             else
                 return View(vehicle);
-        
+
         }
 
         [HttpGet("{id}")]
@@ -64,15 +66,71 @@ namespace ParkingGarage.MVC.Controllers
         {
             return View(await _vehicleService.GetVehicleById(id));
         }
- 
-        //method to make sure a user is logged in
-        public IActionResult CheckUser()
+
+
+        [HttpGet("Edit/{vehicleId}")]
+        public async Task<IActionResult> Edit(int vehicleId)
         {
-            ClaimsPrincipal currentUser = this.User;
-            if (currentUser.Identity.IsAuthenticated == false)
-                return BadRequest("Need to be logged in.");
+            //I want edit form to populate previous data
+            var vehicle = await _vehicleService.GetVehicleById(vehicleId);
+            // the VM -> VehicleEdit so that's what we need to pass into the View().
+            VehicleEdit vehicleVM = new VehicleEdit
+            {
+                Id = vehicleId,
+                Year = vehicle.Year,
+                Make = vehicle.Make,
+                ModelName = vehicle.ModelName,
+                Color = vehicle.Color,
+                LicensePlateState = vehicle.LicensePlateState,
+                LicensePlateNumber = vehicle.LicensePlateNumber
+            };
+
+            return View(vehicleVM);
+        }
+
+        [HttpPost("Edit/{vehicleId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int vehicleId,
+            VehicleEdit model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            model.Id = vehicleId;
+
+            if (await _vehicleService.UpdateVehicle(model))
+                return RedirectToAction("Details", new { id = vehicleId });
             else
-            return View();
+                return RedirectToAction(nameof(Error));
+        }
+
+        [HttpGet("Delete/{vehicleId}")]
+        public async Task<IActionResult> Delete(int? vehicleId)
+        {
+            if (vehicleId == null)
+                return RedirectToAction(nameof(Index));
+            
+            var vehicleInDb = await _vehicleService.GetVehicleById(vehicleId.Value);
+
+            if (vehicleInDb != null)
+            {
+                return View(vehicleInDb);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost("Delete/{vehicleId}")]
+        public async Task<IActionResult> Delete(int vehicleId)
+        {
+            if (await _vehicleService.DeleteVehicle(vehicleId))
+                return RedirectToAction(nameof(Index));
+            else
+                return RedirectToAction(nameof(Error));
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View("Error!");
         }
 
     }

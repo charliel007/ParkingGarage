@@ -34,22 +34,34 @@ namespace ParkingGarage.Services.ReservationServices
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<ReservationListItem>> GetAllReservations()
+        public async Task<List<ReservationListItem>> GetAllReservations(string id)
         {
             var conversion = await _context.Reservations
-                .Include(r => r.VehicleLocationEntity)
-                .ToListAsync(); //
-            
+                .Include(i => i.VehicleLocationEntity)
+                .ThenInclude(r => r.Reservations)
+                .Include(i2 => i2.VehicleLocationEntity)
+                .ThenInclude(l => l.LocationEntity)
+                .Include(i3 => i3.VehicleLocationEntity)
+                .ThenInclude(v => v.VehicleEntity)
+                .Where(i => i.VehicleLocationEntity.VehicleEntity.UserEntityId == id).ToListAsync();
+
             var mapped = _mapper.Map<List<ReservationListItem>>(conversion);
             return mapped;
         }
 
-        public async Task<ReservationDetail> GetReservationById(int id)
+        public async Task<List<ReservationListItem>> GetForCompare()
         {
-            var reservation = await _context.Reservations.Include(r => r.VehicleLocationEntity).FirstOrDefaultAsync(x => x.Id == id);
-            if (reservation == null) return new ReservationDetail();
+            var conversion = await _context.Reservations
+                .Include(i => i.VehicleLocationEntity)
+                .ThenInclude(r => r.Reservations)
+                .Include(i2 => i2.VehicleLocationEntity)
+                .ThenInclude(l => l.LocationEntity)
+                .Include(i3 => i3.VehicleLocationEntity)
+                .ThenInclude(v => v.VehicleEntity)
+                .ToListAsync();
 
-            return _mapper.Map<ReservationDetail>(reservation);
+            var mapped = _mapper.Map<List<ReservationListItem>>(conversion);
+            return mapped;
         }
 
         public async Task<IEnumerable<SelectListItem>> SelectLocationListItemConversion()
@@ -61,9 +73,9 @@ namespace ParkingGarage.Services.ReservationServices
             }).ToListAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> SelectVehicleListItemConversion()
+        public async Task<IEnumerable<SelectListItem>> SelectVehicleListItemConversion(string id)
         {
-            return await _context.Vehicles.Select(l => new SelectListItem
+            return await _context.Vehicles.Where(v => v.UserEntityId == id).Select(l => new SelectListItem
             {
                 Text = l.LicensePlateNumber,
                 Value = l.Id.ToString()

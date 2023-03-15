@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingGarage.MVC.Models;
+using ParkingGarage.Services.LocationServices;
 using System.Diagnostics;
 
 namespace ParkingGarage.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private ILocationService _locationService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ILocationService locationService)
         {
             _logger = logger;
+            _locationService = locationService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _locationService.GetAllLocations());
         }
 
         public IActionResult Privacy()
