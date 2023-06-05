@@ -66,7 +66,15 @@ namespace ParkingGarage.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(ReservationCreate reservation, decimal hours, decimal days, decimal years)
         {
-
+            // verify the user input has been entered correctly
+            if (reservation.IssueDate == null)
+            {
+                return RedirectToAction(nameof(Post));
+            }
+            if (hours == 0 && days == 0 && years == 0)
+            {
+                return RedirectToAction(nameof(Post));
+            }
             if ((hours > 0 || days > 0) && years > 0)
             {
                 return RedirectToAction(nameof(Post));
@@ -79,29 +87,32 @@ namespace ParkingGarage.MVC.Controllers
             {
                 return RedirectToAction(nameof(Post));
             }
-
+            
+            //convert time to single unit to create the expriation date
             int hrconvert = Convert.ToInt32((years * 8760) + (days * 24) + hours);
-            reservation.ExpirationDate = reservation.IssueDate
-            .AddHours(hrconvert);
 
+            reservation.ExpirationDate = reservation.IssueDate?.AddHours(hrconvert);
+            
+            //remove extra variables to validate modelstate
             ModelState.Remove("hours");
             ModelState.Remove("days");
             ModelState.Remove("years");
 
-            //check to see how many spots are available and not exceed the limit
+            //****check to see how many spots are available and not exceed the limit
             var countedTimes = await _reservationService.GetForCompare();
-
+            //initialize variables
             int count = 0;
             int spot = 0;
 
+
             foreach (var existingRes in countedTimes)  
             {
-                if((reservation.IssueDate <= existingRes.ExpirationDate) && (existingRes.IssueDate <= reservation.ExpirationDate))
+                if((existingRes.VehicleLocation.LocationEntityId == reservation.LocationEntityId) && (reservation.IssueDate <= existingRes.ExpirationDate) && (existingRes.IssueDate <= reservation.ExpirationDate))
                 {
                     count += 1;
                 }
             }
-
+            // determine parking garage location and set to variable in order to figure out total spots available
             var location = countedTimes.Select(i => i.VehicleLocation.Location)
                 .Where(l => l.Id == reservation.LocationEntityId).FirstOrDefault();
 

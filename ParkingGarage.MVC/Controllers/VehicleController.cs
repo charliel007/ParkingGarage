@@ -53,7 +53,7 @@ namespace ParkingGarage.MVC.Controllers
             ModelState.Remove("UserEntityId");
 
             if (!ModelState.IsValid)
-                return BadRequest(vehicle);
+                return BadRequest("Re-enter vehicle, must include a License Plate.");
             if (await _vehicleService.CreateVehicle(vehicle))
                 return RedirectToAction(nameof(Index));
             else
